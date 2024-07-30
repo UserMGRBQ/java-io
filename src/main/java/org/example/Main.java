@@ -1,25 +1,45 @@
 package org.example;
 
-import java.io.*;
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        String[] lines = new String[] {
-                "Good morning",
-                "Good afternoon",
-                "Good evening",
-                "Good night"
-        };
-        String path = "C:\\Users\\opah\\Desktop\\JAVA studies\\java-io\\greetings.txt";
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-            for (String line : lines) {
-                bw.write(line);
-                bw.newLine();
-            }
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Welcome! Please, write a folder path:");
+        String strPath = sc.nextLine();
+        File path = new File(strPath);
+
+        File[] folders = path.listFiles(File::isDirectory);
+        File[] files = path.listFiles(File::isFile);
+
+        // Listing folders from directory
+        System.out.println("FOLDERS:");
+        System.out.println();
+        for (File folder : folders) {
+            System.out.println(folder);
         }
-        catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+
+        // Listing files from directory
+        System.out.println();
+        System.out.println("Files:");
+        System.out.println();
+        for (File file : files) {
+            System.out.println(file);
+        }
+
+        // Creating a folder
+        boolean success = new File(strPath + "\\subdir").mkdir();
+        System.out.println("FOLDERS:");
+        System.out.println();
+        for (File folder : folders) {
+            System.out.println(folder);
         }
     }
 }
